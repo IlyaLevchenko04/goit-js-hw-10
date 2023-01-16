@@ -5,9 +5,8 @@ import { fetchApi } from './fetchCountries.js';
 
 
 
-
-const DEBOUNCE_DELAY = 300;
 export const BASE_URL = 'https://restcountries.com/v3.1/name'
+const DEBOUNCE_DELAY = 300;
 
 
 export const input = document.querySelector('#search-box');
@@ -15,6 +14,7 @@ const list = document.querySelector('.country-list');
 const info = document.querySelector('.country-info');
 
 input.addEventListener('input', debounce(onInput, 300));
+
 
 
 
@@ -30,6 +30,7 @@ function onInput(){
 
         if(data.length > 10){
             Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+            list.innerHTML = '';
         }else if(2 < data.length < 10){
             createMarkupForMultiply(data);
         }
@@ -38,8 +39,13 @@ function onInput(){
             createMarkupForOne(data)
         }
         
+    }).catch(err => {
+        Notiflix.Notify.failure('Oops, there is no country with that name');
     })
 }
+
+
+
 
 function createMarkupForOne(mass){
     const markup = mass.map(({capital, languages, population, name:{official}, flags:{svg}}) => {
