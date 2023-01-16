@@ -26,11 +26,9 @@ function onInput(){
         
         if(input.value.trim() === ''){
             list.innerHTML = '';
-        }
-
-        if(data.length > 10){
-            Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-            list.innerHTML = '';
+        }else if(data.length > 10){
+            Notiflix.Notify.info('Too many matches found. Please enter a more specific name.' );
+            list.innerHTML = ' ';
         }else if(2 < data.length < 10){
             createMarkupForMultiply(data);
         }
@@ -38,10 +36,14 @@ function onInput(){
         if(data.length === 1){
             createMarkupForOne(data)
         }
+
+        
         
     }).catch(err => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-    })
+        if(input.value.trim()){
+            Notiflix.Notify.failure('Oops, there is no country with that name');
+        }
+})
 }
 
 

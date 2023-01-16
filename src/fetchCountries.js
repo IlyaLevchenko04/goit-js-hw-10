@@ -11,9 +11,8 @@ export function fetchApi(name){
         }
 
         return response.json();
-    }).catch(err => {
-        if(input.value.trim()){
-            Notiflix.Notify.failure('Oops, there is no country with that name');
-        }
     })
+    // .catch(err => {
+        
+    // })
 }
